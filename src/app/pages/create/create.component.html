@@ -1,0 +1,48 @@
+<app-header></app-header>
+<div class="container mt-4">
+
+  <form [formGroup]="form" (submit)="submit()" class="needs-validation novalidate">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" formControlName="title" >
+      <div *ngIf="form.get('title')?.invalid && form.get('title')?.touched" style="display: block" class="invalid-feedback">
+        Title is required!
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input type="text" class="form-control" id="description" formControlName="description">
+      <div *ngIf="form.get('description')?.invalid && form.get('description')?.touched" style="display: block" class="invalid-feedback">
+        Description is required!
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="dueDate" class="form-label"></label>
+      <mat-form-field appearance="fill" class="w-50">
+        <mat-label>Choose a Due Date <mat-hint>DD/MM/YYYY</mat-hint></mat-label>
+        <input matInput [matDatepicker]="picker"
+               type="text" class="form-control" id="dueDate" formControlName="dueDate">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="mb-3">
+      <label for="responsiblePersonId" class="form-label">Responsible Person</label>
+      <select class="form-select" id="responsiblePersonId" aria-label="Default select example" formControlName="responsiblePersonId">
+        <ng-container *ngFor="let person of persons">
+          <option [value]="person.id">{{person.fullName}}</option>
+        </ng-container>
+      </select>
+      <div *ngIf="form.get('responsiblePersonId')?.invalid && form.get('responsiblePersonId')?.touched" style="display: block" class="invalid-feedback">
+        Responsible Person is required!
+      </div>
+    </div>
+    <div>
+
+      <button type="submit" class="btn btn-primary m-2">{{todoId ? 'Update todo' : 'Create todo'}}</button>
+    </div>
+  </form>
+
+</div>
+
+
